@@ -455,7 +455,7 @@
   </div>
 
   <script>
-    function setLang(lang) {
+    function setLang(lang, updateURL) {
       document.documentElement.lang = lang;
       document.querySelectorAll('[data-lang]').forEach(el => {
         el.style.display = el.dataset.lang === lang ? 'revert' : 'none';
@@ -464,7 +464,18 @@
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.textContent === flags[lang]);
       });
+      if (updateURL !== false) {
+        const url = new URL(window.location);
+        if (lang === 'en') { url.searchParams.delete('lang'); }
+        else { url.searchParams.set('lang', lang); }
+        history.replaceState(null, '', url);
+      }
     }
+
+    (function() {
+      const param = new URLSearchParams(window.location.search).get('lang');
+      if (param === 'fr') setLang('fr', false);
+    })();
 
     function copyBanner(btn) {
       const pre = btn.closest('.banner-block').querySelector('pre');
