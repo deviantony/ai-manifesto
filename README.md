@@ -1,3 +1,3 @@
 # AI Manifesto
 
-For more information, see https://alapenna.mataroa.blog/blog/manifesto-de-lutilisation-de-lia/
+Pour plus d'information, voir https://alapenna.mataroa.blog/blog/manifesto-de-lutilisation-de-lia/
