@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Manifesto</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f172a'/%3E%3Ctext x='16' y='22.5' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='17' fill='%23f8fafc' letter-spacing='-0.5'%3EAI%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.7;
+      color: #1e293b;
+      background: #f8fafc;
+      padding: 0 1.5rem 2rem;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* ── Sticky nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(248, 250, 252, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid #e2e8f0;
+      margin: 0 -1.5rem;
+      padding: 0 1.5rem;
+    }
+
+    nav .nav-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      height: 3rem;
+    }
+
+    nav .nav-title {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #0f172a;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    nav .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      margin-left: 2rem;
+    }
+
+    nav .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #64748b;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    nav .nav-links a:hover {
+      color: #0f172a;
+    }
+
+    /* ── Language switcher ── */
+    .lang-switcher {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .lang-btn {
+      font-size: 1.15rem;
+      line-height: 1;
+      padding: 0;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      opacity: 0.4;
+      transition: opacity 0.15s;
+    }
+
+    .lang-btn:hover {
+      opacity: 0.7;
+    }
+
+    .lang-btn.active {
+      opacity: 1;
+    }
+
+    /* ── Header ── */
+    header {
+      margin-bottom: 3rem;
+      padding-top: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    h1 {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+      color: #0f172a;
+    }
+
+    header p {
+      color: #64748b;
+      font-size: 1.05rem;
+    }
+
+    /* ── Sections ── */
+    section {
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+      color: #0f172a;
+    }
+
+    .definition {
+      font-size: 1.05rem;
+      color: #475569;
+      margin-bottom: 1.25rem;
+    }
+
+    h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #334155;
+    }
+
+    ul {
+      margin-bottom: 1.5rem;
+      padding-left: 1.25rem;
+    }
+
+    li {
+      margin-bottom: 0.35rem;
+      color: #475569;
+    }
+
+    /* ── Refined code blocks ── */
+    .banner-block {
+      position: relative;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .banner-block:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06);
+    }
+
+    .banner-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.45rem 0.85rem;
+      background: #e8edf3;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .banner-toolbar span {
+      font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: #94a3b8;
+      letter-spacing: 0.02em;
+    }
+
+    .banner-block pre {
+      font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+      font-size: 0.8rem;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      color: #334155;
+      padding: 1rem 1.15rem;
+      margin: 0;
+    }
+
+    .copy-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      background: #fff;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      padding: 0.25em 0.6em;
+      cursor: pointer;
+      color: #64748b;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+
+    .copy-btn:hover {
+      background: #f8fafc;
+      color: #1e293b;
+      border-color: #94a3b8;
+    }
+
+    .copy-btn.copied {
+      color: #16a34a;
+      border-color: #16a34a;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid #e2e8f0;
+      margin: 3rem 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding-top: 1.5rem;
+      border-top: 1px solid #e2e8f0;
+      color: #94a3b8;
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: #64748b;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #1e293b;
+    }
+
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── i18n ── */
+    [data-lang] { display: none; }
+    [data-lang="en"] { display: revert; }
+
+    @media (max-width: 600px) {
+      body { padding: 0 1.25rem 2rem; }
+      nav { margin: 0 -1.25rem; padding: 0 1.25rem; }
+      nav .nav-links { gap: 1rem; margin-left: 1.25rem; }
+      h1 { font-size: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-title">AI Manifesto</a>
+      <div class="nav-links">
+        <a href="#vibe-coding" data-lang="en">Vibe-Coding</a>
+        <a href="#assisted-development" data-lang="en">Assisted Development</a>
+        <a href="#vibe-coding" data-lang="fr">Vibe-Coding</a>
+        <a href="#assisted-development" data-lang="fr">D&eacute;veloppement assist&eacute;</a>
+      </div>
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLang('en')" aria-label="English">&#127468;&#127463;</button>
+        <button class="lang-btn" onclick="setLang('fr')" aria-label="Fran&ccedil;ais">&#127467;&#127479;</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- ═══ ENGLISH ═══ -->
+
+    <header data-lang="en">
+      <h1>AI Manifesto</h1>
+      <p>
+        A reference manifesto for AI usage across my projects. It defines how AI is used,
+        for what purpose, and what to expect regarding the project's evolution.
+      </p>
+    </header>
+
+    <section id="vibe-coding" data-lang="en">
+      <h2>Vibe-Coding</h2>
+      <p class="definition">
+        All or nearly all of the code and associated architectural decisions in this project
+        were generated by AI, with little to no human review.
+      </p>
+
+      <h3>Expectations</h3>
+      <ul>
+        <li>The developer may have little to no understanding of the code.</li>
+        <li>The project may not follow software engineering best practices.</li>
+        <li>External contributions are not expected. If you want to evolve this project, it is recommended to fork it.</li>
+        <li>There is no guarantee of long-term support and/or maintenance.</li>
+      </ul>
+
+      <h3>README Banner</h3>
+      <p style="color:#64748b; font-size:0.9rem; margin-bottom:0.75rem;">Copy this block into your project's README:</p>
+      <div class="banner-block">
+        <div class="banner-toolbar">
+          <span>markdown</span>
+          <button class="copy-btn" onclick="copyBanner(this)" aria-label="Copy to clipboard">Copy</button>
+        </div>
+<pre>
+&gt; **AI Manifesto: Vibe-coding**
+&gt;
+&gt; This project is vibe-coded with AI. The associated code has undergone little to no review.
+&gt; It is recommended to fork this project if you would like to see it evolve.
+&gt;
+&gt; [Read the full AI Manifesto &rarr;](https://deviantony.github.io/ai-manifesto)
+</pre>
+      </div>
+    </section>
+
+    <hr class="divider" data-lang="en">
+
+    <section id="assisted-development" data-lang="en">
+      <h2>AI-Assisted Development</h2>
+      <p class="definition">
+        All or nearly all of the code in this project is generated via AI, and the majority
+        is reviewed by the developer. Architectural decisions are made by the developer.
+      </p>
+
+      <h3>Expectations</h3>
+      <ul>
+        <li>The developer has a strong understanding of the code.</li>
+        <li>The developer has a strong understanding of the software architecture.</li>
+        <li>The project strives to follow software engineering best practices.</li>
+        <li>External contributions may be accepted. The project may be equipped with a harness to facilitate AI-assisted contributions.</li>
+      </ul>
+
+      <h3>README Banner</h3>
+      <p style="color:#64748b; font-size:0.9rem; margin-bottom:0.75rem;">Copy this block into your project's README:</p>
+      <div class="banner-block">
+        <div class="banner-toolbar">
+          <span>markdown</span>
+          <button class="copy-btn" onclick="copyBanner(this)" aria-label="Copy to clipboard">Copy</button>
+        </div>
+<pre>
+&gt; **AI Manifesto: AI-Assisted Development**
+&gt;
+&gt; This project is developed with the help of AI. The associated code has been
+&gt; mostly reviewed by the developer. It is equipped to facilitate AI-assisted contributions.
+&gt;
+&gt; [Read the full AI Manifesto &rarr;](https://deviantony.github.io/ai-manifesto)
+</pre>
+      </div>
+    </section>
+
+    <!-- ═══ FRENCH ═══ -->
+
+    <header data-lang="fr">
+      <h1>AI Manifesto</h1>
+      <p>
+        Un manifeste de r&eacute;f&eacute;rence pour l'utilisation de l'IA dans mes projets.
+        Il d&eacute;finit comment l'IA y est utilis&eacute;e, dans quel but ainsi que les attentes
+        d'&eacute;volutions associ&eacute;es au projet.
+      </p>
+    </header>
+
+    <section data-lang="fr">
+      <h2>Vibe-Coding</h2>
+      <p class="definition">
+        La totalit&eacute; ou quasi-totalit&eacute; du code ainsi que les d&eacute;cisions architecturales
+        associ&eacute;es &agrave; ce projet ont &eacute;t&eacute; g&eacute;n&eacute;r&eacute;es par IA,
+        avec pas ou peu de revue.
+      </p>
+
+      <h3>Attentes</h3>
+      <ul>
+        <li>Le d&eacute;veloppeur peut avoir une compr&eacute;hension inexistante ou incompl&egrave;te du code.</li>
+        <li>Il se peut que ce projet ne suive pas les meilleures pratiques en mati&egrave;re de d&eacute;veloppement logiciel.</li>
+        <li>Les contributions externes ne sont pas pr&eacute;vues. Dans le cas o&ugrave; vous voudriez faire &eacute;voluer ce projet, il est recommand&eacute; de le fourcher.</li>
+        <li>Aucune garantie de support et/ou de maintenance sur le long terme.</li>
+      </ul>
+
+      <h3>Banni&egrave;re</h3>
+      <p style="color:#64748b; font-size:0.9rem; margin-bottom:0.75rem;">Copiez ce bloc dans le README de votre projet&nbsp;:</p>
+      <div class="banner-block">
+        <div class="banner-toolbar">
+          <span>markdown</span>
+          <button class="copy-btn" onclick="copyBanner(this)" aria-label="Copier">Copier</button>
+        </div>
+<pre>
+&gt; **AI Manifesto: Vibe-coding**
+&gt;
+&gt; Ce projet est vibecod&eacute; avec l'IA. Le code associ&eacute; &agrave; ce projet n'a pas ou peu &eacute;t&eacute; revu.
+&gt; Il est recommand&eacute; de fourcher ce projet si vous souhaitez le voir &eacute;voluer.
+&gt;
+&gt; [Lire le manifeste IA complet &rarr;](https://deviantony.github.io/ai-manifesto)
+</pre>
+      </div>
+    </section>
+
+    <hr class="divider" data-lang="fr">
+
+    <section data-lang="fr">
+      <h2>D&eacute;veloppement assist&eacute; par IA</h2>
+      <p class="definition">
+        La totalit&eacute; ou quasi-totalit&eacute; du code associ&eacute; &agrave; ce projet est
+        g&eacute;n&eacute;r&eacute; via IA et une majeure partie est revue par le d&eacute;veloppeur.
+        Les d&eacute;cisions architecturales sont d&eacute;finies par le d&eacute;veloppeur.
+      </p>
+
+      <h3>Attentes</h3>
+      <ul>
+        <li>Le d&eacute;veloppeur a une forte compr&eacute;hension du code.</li>
+        <li>Le d&eacute;veloppeur a une forte compr&eacute;hension de l'architecture du logiciel.</li>
+        <li>Le projet essaie de suivre les meilleures pratiques en mati&egrave;re de d&eacute;veloppement logiciel.</li>
+        <li>Les contributions externes peuvent &ecirc;tre accept&eacute;es, le projet peut &ecirc;tre &eacute;quip&eacute; d'un harnais permettant les contributions assist&eacute;es par IA.</li>
+      </ul>
+
+      <h3>Banni&egrave;re</h3>
+      <p style="color:#64748b; font-size:0.9rem; margin-bottom:0.75rem;">Copiez ce bloc dans le README de votre projet&nbsp;:</p>
+      <div class="banner-block">
+        <div class="banner-toolbar">
+          <span>markdown</span>
+          <button class="copy-btn" onclick="copyBanner(this)" aria-label="Copier">Copier</button>
+        </div>
+<pre>
+&gt; **AI Manifesto: D&eacute;veloppement assist&eacute; par IA**
+&gt;
+&gt; Ce projet est d&eacute;velopp&eacute; avec l'aide de l'IA. Le code associ&eacute; &agrave; ce projet a &eacute;t&eacute; majoritairement revu par le d&eacute;veloppeur.
+&gt; Il est &eacute;quip&eacute; pour faciliter les contributions assist&eacute;es par IA.
+&gt;
+&gt; [Lire le manifeste IA complet &rarr;](https://deviantony.github.io/ai-manifesto)
+</pre>
+      </div>
+    </section>
+
+    <footer>
+      <a href="https://github.com/deviantony/ai-manifesto">View on GitHub</a>
+    </footer>
+  </div>
+
+  <script>
+    function setLang(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-lang]').forEach(el => {
+        el.style.display = el.dataset.lang === lang ? 'revert' : 'none';
+      });
+      const flags = { en: '\u{1F1EC}\u{1F1E7}', fr: '\u{1F1EB}\u{1F1F7}' };
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent === flags[lang]);
+      });
+    }
+
+    function copyBanner(btn) {
+      const pre = btn.closest('.banner-block').querySelector('pre');
+      const text = pre.textContent.trim().replace(/^[ \t]+/gm, '');
+      const lang = document.documentElement.lang;
+      const copiedLabel = lang === 'fr' ? 'Copi\u00e9 !' : 'Copied!';
+      const defaultLabel = lang === 'fr' ? 'Copier' : 'Copy';
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = copiedLabel;
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = defaultLabel;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
